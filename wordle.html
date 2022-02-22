@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      input {
+        width: 50px;
+        height: 50px;
+        font-size: 40px;
+        text-align: center;
+      }
+    </style>
+
+    <input class="input" autofocus maxlength="1" />
+    <input class="input" maxlength="1" />
+    <input class="input" maxlength="1" />
+    <input class="input" maxlength="1" />
+    <input class="input" maxlength="1" />
+    <button>submit</button>
+
+    <script>
+      let answer = 'apple';
+
+      document.querySelector('button').addEventListener('click', () => {
+        let input = document.querySelectorAll('.input');
+        let point = 0;
+        // 1. 위치까지 맞다면 => 녹색
+        for (let i = 0; i < input.length; i++) {
+          if (input[i].value === answer[i]) {
+            input[i].style.background = 'green';
+            point++;
+          } else if (!input[i].value) {
+            // + 공백일 때 노란색으로 변하는 에러 처리
+            input[i].style.background = 'white';
+          } else if (answer.includes(input[i].value)) {
+            // 2. 위치는 안맞으면 => 노란색
+            input[i].style.background = '#FFC81E';
+          } else {
+            // 3. 전부 아니면 => 회색
+            input[i].style.background = 'grey';
+          }
+          input[i].classList.remove('input');
+        }
+
+        // 전부 다 맞았을 때 추가 행 생기지 않게
+        if (point >= 5) {
+          return;
+        } else {
+          point = 0;
+          let template = `<div>
+        <input class="input">
+        <input class="input">
+        <input class="input">
+        <input class="input">
+        <input class="input">
+        </div>`;
+          document
+            .querySelector('body')
+            .insertAdjacentHTML('beforeend', template);
+        }
+      });
+    </script>
+  </body>
+</html>
